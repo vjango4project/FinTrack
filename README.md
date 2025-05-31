@@ -4,6 +4,7 @@
 ✨ Features
   ✅ Smart Budgeting & Insights
   Track income, expenses, and get insights on your spending habits.
+  
   ✅ Secure Micro-Loan Simulator
   Simulate loan EMI based on amount, interest rate, and duration.
   ✅ Real-Time Credit Evaluation (Mocked Logic)
