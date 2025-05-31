@@ -1,6 +1,9 @@
-💡 Approach & Solution
+💡 Approach & Solution:
+
   This PFM app uses client-side technologies (HTML, CSS, Bootstrap, and JavaScript) to offer budgeting tools, a loan simulator, and real-time credit evaluation.     All data is stored securely in the browser using LocalStorage, making the app fast and private.
 
+
+  
 ✨ Features:
 
   ✅ Smart Budgeting & Insights
@@ -16,6 +19,7 @@
   Mobile-friendly and visually clean layout for better UX.
 
 
+  
 🛠️ Tech Stack
   HTML5 – Markup
   
@@ -28,7 +32,9 @@
   LocalStorage – Persistent data in the browser
 
 
-🚀 Run Instructions
+
+🚀 Run Instructions:
+
 ✅ Run Locally
   Clone the repository:
     git clone https://github.com/your-username/pfm-app.git
