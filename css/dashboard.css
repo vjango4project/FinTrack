@@ -1,0 +1,193 @@
+:root {
+            --navy-blue: #001f3f;
+            --dark-blue: #003366;
+            --medium-blue: #005b96;
+            --bright-blue: #0074d9;
+            --sky-blue: #7dbbe6;
+            --light-blue: #e6f2ff;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+        }
+        
+        body {
+            background-color: var(--off-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom, var(--navy-blue), var(--dark-blue));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h3 {
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 0;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu .nav-link:hover, 
+        .sidebar-menu .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            border-left: 3px solid var(--sky-blue);
+        }
+        
+        .sidebar-menu .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-footer img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .user-info small {
+            display: block;
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            background-color: var(--off-white);
+        }
+        
+        /* Rainbow Text */
+        .rainbow-text {
+            background: linear-gradient(to right, 
+                #ff0000, #ff7f00, #ffff00, 
+                #00ff00, #0000ff, #4b0082, #9400d3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow-animation 6s linear infinite;
+            background-size: 400% 100%;
+        }
+        
+        @keyframes rainbow-animation {
+            0% { background-position: 0% 50% }
+            100% { background-position: 100% 50% }
+        }
+        
+        /* Welcome Banner */
+        .welcome-banner {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--bright-blue);
+        }
+        
+        /* Card Styles */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            background-color: var(--white);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .card-income {
+            border-top: 4px solid #2ecc71;
+        }
+        
+        .card-expense {
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .card-savings {
+            border-top: 4px solid #3498db;
+        }
+        
+        .card-budget {
+            border-top: 4px solid #f39c12;
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        /* Form Styles */
+        .form-section {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--medium-blue);
+        }
+        
+        /* Chart Styles */
+        .chart-container {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            height: 350px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }

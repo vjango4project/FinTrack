@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/goals.css">
+</head>
+<body>
+    <div class="layout">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-wallet"></i> FinTrack</h3>
+        </div>
+        
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/page/index.html">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/page/goal.html">
+                        <i class="fas fa-exchange-alt"></i> Goals
+                    </a>
+                </li>
+                <li class="nav-item">
+                 <a class="nav-link" href="/page/loan.html">
+                     <i class="fas fa-coins"></i> Loan
+                         </a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="/page/repayment.html">
+                       <i class="fas fa-calendar-check"></i> Repayment
+                         </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User">
+            <div class="user-info">
+                <strong>John Doe</strong>
+                <small>Admin</small>
+            </div>
+        </div>
+    </div>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0"><i class="fas fa-bullseye text-primary"></i> Financial Goals</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGoalModal">
+                <i class="fas fa-plus"></i> Add Goal
+            </button>
+        </div>
+        
+        <div class="row" id="goals-container">
+            <!-- Goals will be loaded here -->
+        </div>
+    </div>
+</div>
+    <!-- Add Goal Modal -->
+    <div class="modal fade" id="addGoalModal" tabindex="-1" aria-labelledby="addGoalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGoalModalLabel">Add New Goal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="goal-form">
+                        <div class="mb-3">
+                            <label for="goal-name" class="form-label">Goal Name</label>
+                            <input type="text" class="form-control" id="goal-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="goal-amount" class="form-label">Target Amount (₹)</label>
+                            <input type="number" class="form-control" id="goal-amount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="goal-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="goal-description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="goal-deadline" class="form-label">Target Date</label>
+                            <input type="date" class="form-control" id="goal-deadline" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="save-goal-btn">Save Goal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Detail Modal -->
+    <div class="modal fade" id="goalDetailModal" tabindex="-1" aria-labelledby="goalDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="goalDetailModalLabel">Goal Progress</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="detail-goal-name"></h4>
+                    <p id="detail-goal-description"></p>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Saved: ₹<span id="detail-saved-amount">0</span></span>
+                        <span>Target: ₹<span id="detail-target-amount">0</span></span>
+                    </div>
+                    <div class="progress modal-progress mb-3">
+                        <div id="detail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Deadline: <span id="detail-deadline"></span></span>
+                        <span id="detail-days-left"></span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5>Add Contribution</h5>
+                    <form id="contribution-form">
+                        <div class="mb-3">
+                            <label for="contribution-amount" class="form-label">Amount (₹)</label>
+                            <input type="number" class="form-control" id="contribution-amount" required>
+                            <small id="contribution-limit" class="text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contribution-date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="contribution-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contribution-notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="contribution-notes" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-plus-circle"></i> Add Contribution
+                        </button>
+                    </form>
+                    
+                    <hr>
+                    
+                    <h5>Contributions</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contributions-table">
+                                <!-- Contributions will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/goals.js"></script>
+</body>
+</html>

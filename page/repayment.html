@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Repayment Tracker</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Sidebar styles remain unchanged */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #001f3f;
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        .sidebar-menu .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 0;
+            transition: all 0.3s;
+        }
+        .sidebar-menu .nav-link:hover,
+        .sidebar-menu .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .sidebar-menu .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main content adjustments */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Enhanced EMI Table Styles */
+        .emi-table {
+            --bs-table-bg: transparent;
+            --bs-table-striped-bg: rgba(0, 123, 255, 0.02);
+            --bs-table-hover-bg: rgba(0, 123, 255, 0.05);
+            width: 100%;
+            margin-bottom: 0;
+        }
+        
+        .emi-table thead th {
+            background-color: #f8f9fa;
+            border-bottom-width: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            color: #495057;
+            vertical-align: middle;
+        }
+        
+        .emi-table tbody td {
+            padding: 14px 16px;
+            vertical-align: middle;
+            border-color: #eff2f7;
+        }
+        
+        .emi-table tbody tr:last-child td {
+            border-bottom-width: 0;
+        }
+        
+        .installment-number {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .due-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .amount {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-paid {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-overdue {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-icon {
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-wallet"></i> FinTrack</h3>
+      </div>
+      <div class="sidebar-menu">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/page/index.html">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/page/goal.html">
+              <i class="fas fa-exchange-alt"></i> Goals
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/page/loan.html">
+              <i class="fas fa-coins"></i> Loan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/page/repayment.html">
+              <i class="fas fa-calendar-check"></i> Repayment
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0"><i class="fas fa-calendar-check text-primary me-2"></i> Loan Repayment Tracker</h2>
+        </div>
+
+        <!-- Repayment Summary Cards -->
+        <div id="repayment-summary" class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <div class="card border-start border-primary border-4 h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="text-muted mb-2">Total Loan</h6>
+                    <h4 class="mb-0">₹<span id="total-loan">0</span></h4>
+                  </div>
+                  <div class="bg-primary bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-rupee-sign text-primary fa-2x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card border-start border-success border-4 h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="text-muted mb-2">Amount Paid</h6>
+                    <h4 class="mb-0">₹<span id="amount-paid">0</span></h4>
+                  </div>
+                  <div class="bg-success bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-check-circle text-success fa-2x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card border-start border-warning border-4 h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="text-muted mb-2">Remaining</h6>
+                    <h4 class="mb-0">₹<span id="remaining-amount">0</span></h4>
+                  </div>
+                  <div class="bg-warning bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-clock text-warning fa-2x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMI Schedule -->
+        <div class="card shadow-sm">
+          <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="fas fa-list-ol text-primary me-2"></i> EMI Schedule</h5>
+            <div>
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-download me-1"></i> Export
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table emi-table mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Installment #</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="emi-table-body">
+                  <!-- Rows will be inserted by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="text-muted small">
+                Showing <span id="showing-count">0</span> of <span id="total-count">0</span> installments
+              </div>
+              <nav aria-label="EMI pagination">
+                <ul class="pagination pagination-sm mb-0">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/repayment.js"></script>
+</body>
+</html>

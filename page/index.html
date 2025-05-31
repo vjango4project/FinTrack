@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTech Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-wallet"></i> FinTrack</h3>
+        </div>
+        
+       <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/page/index.html">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/page/goal.html">
+                        <i class="fas fa-exchange-alt"></i> Goals
+                    </a>
+                </li>
+                <li class="nav-item">
+                 <a class="nav-link" href="/page/loan.html">
+                     <i class="fas fa-coins"></i> Loan
+                         </a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="/page/repayment.html">
+                       <i class="fas fa-calendar-check"></i> Repayment
+                         </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User">
+            <div class="user-info">
+                <strong>Vjango</strong>
+                <small>User</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <h2 class="rainbow-text">Welcome, Vjango!</h2>
+            <p class="text-muted">Track and manage your finances effectively</p>
+        </div>
+
+        <!-- Financial Overview -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card card-income">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">Total Income</h6>
+                        <h2 class="stat-number text-success">₹<span id="total-income">0</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-expense">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">Total Expenses</h6>
+                        <h2 class="stat-number text-danger">₹<span id="total-expense">0</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-savings">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">Total Savings</h6>
+                        <h2 class="stat-number text-primary">₹<span id="total-savings">0</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-budget">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">Remaining Budget</h6>
+                        <h2 class="stat-number text-warning">₹<span id="remaining-budget">0</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Forms -->
+        <div class="form-section">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-income-tab" data-bs-toggle="pill" data-bs-target="#pills-income" type="button" role="tab" aria-controls="pills-income" aria-selected="true">
+                        <i class="fas fa-hand-holding-usd"></i> Add Income
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-expense-tab" data-bs-toggle="pill" data-bs-target="#pills-expense" type="button" role="tab" aria-controls="pills-expense" aria-selected="false">
+                        <i class="fas fa-money-bill-wave"></i> Add Expense
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-savings-tab" data-bs-toggle="pill" data-bs-target="#pills-savings" type="button" role="tab" aria-controls="pills-savings" aria-selected="false">
+                        <i class="fas fa-piggy-bank"></i> Savings
+                    </button>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="/page/loan.html">
+                       <i class="fas fa-coins"></i> Loan
+                         </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page/repayment.html">
+                     <i class="fas fa-calendar-check"></i> Repayment
+                      </a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Income Form -->
+                <div class="tab-pane fade show active" id="pills-income" role="tabpanel" aria-labelledby="pills-income-tab">
+                    <form id="income-form">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="income-amount" class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="income-amount" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="income-source" class="form-label">Source</label>
+                                <select class="form-select" id="income-source" required>
+                                    <option value="">Select source</option>
+                                    <option value="Salary">Salary</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Investments">Investments</option>
+                                    <option value="Gift">Gift</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="income-date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="income-date" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="income-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="income-description" rows="2" placeholder="Optional notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-plus-circle"></i> Add Income
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Expense Form -->
+                <div class="tab-pane fade" id="pills-expense" role="tabpanel" aria-labelledby="pills-expense-tab">
+                    <form id="expense-form">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="expense-amount" class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="expense-amount" placeholder="0.00" required>
+                                </div>
+                                <small id="expense-limit" class="text-muted"></small>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="expense-category" class="form-label">Category</label>
+                                <select class="form-select" id="expense-category" required>
+                                    <option value="">Select category</option>
+                                    <option value="Food & Dining">Food & Dining</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Housing">Housing</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="expense-date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="expense-date" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expense-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="expense-description" rows="2" placeholder="Optional notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-plus-circle"></i> Add Expense
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Savings Form -->
+                <div class="tab-pane fade" id="pills-savings" role="tabpanel" aria-labelledby="pills-savings-tab">
+                    <form id="savings-form">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="savings-amount" class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="savings-amount" placeholder="0.00" required>
+                                </div>
+                                <small id="savings-limit" class="text-muted"></small>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="savings-type" class="form-label">Transaction Type</label>
+                                <select class="form-select" id="savings-type" required>
+                                    <option value="deposit">Deposit</option>
+                                    <option value="withdraw">Withdraw</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="savings-goal" class="form-label">Goal (Optional)</label>
+                                <input type="text" class="form-control" id="savings-goal" placeholder="Vacation, Emergency, etc.">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="savings-date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="savings-date" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="savings-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="savings-description" rows="2" placeholder="Optional notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Transaction
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Insights -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="chart-container">
+                    <h5><i class="fas fa-chart-pie text-primary"></i> Expense Breakdown</h5>
+                    <div style="height: 280px; width: 100%;">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="chart-container">
+                    <h5><i class="fas fa-chart-bar text-primary"></i> Income vs Expenses</h5>
+                    <div style="height: 280px; width: 100%;">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0"><i class="fas fa-list text-primary"></i> Recent Transactions</h5>
+                    <a href="#" class="btn btn-sm btn-primary" id="view-all-btn">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-table">
+                                <!-- Transactions will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

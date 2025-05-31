@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Main layout styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background: #001f3f;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h3 {
+            font-weight: 600;
+            color: white;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 20px;
+            margin: 2px 0;
+            border-radius: 0;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .sidebar-menu .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+        }
+        
+        .sidebar-menu .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main content styles */
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+        
+        .form-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .form-section h2 {
+            color: #001f3f;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #d1d3e2;
+        }
+        
+        .form-control:focus {
+            border-color: #bac8f3;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653d4;
+        }
+        
+        #loan-status {
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-wallet"></i> FinTrack</h3>
+      </div>
+      <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/page/index.html">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/page/goal.html">
+                        <i class="fas fa-exchange-alt"></i> Goals
+                    </a>
+                </li>
+                <li class="nav-item">
+                 <a class="nav-link active" href="/page/loan.html">
+                     <i class="fas fa-coins"></i> Loan
+                         </a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="/page/repayment.html">
+                       <i class="fas fa-calendar-check"></i> Repayment
+                         </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content p-4">
+      <h2 class="mb-4">📄 Loan Application</h2>
+
+      <div class="form-section">
+        <form id="loan-form">
+          <div class="mb-3">
+            <label for="loan-amount" class="form-label">Loan Amount (₹)</label>
+            <input type="number" class="form-control" id="loan-amount" required placeholder="Enter amount">
+          </div>
+
+          <div class="mb-3">
+            <label for="pan-number" class="form-label">PAN Number</label>
+            <input type="text" class="form-control" id="pan-number" maxlength="10" placeholder="ABCDE1234F" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+
+        <div id="loan-status" class="mt-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap and JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/loan.js"></script>
+</body>
+</html>
