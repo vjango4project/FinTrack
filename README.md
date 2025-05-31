@@ -37,10 +37,9 @@
 
 ✅ Run Locally
   Clone the repository:
-    git clone https://github.com/your-username/pfm-app.git
-    cd pfm-app
+    git clone https://github.com/vjango4project/FinTrack.git
+    cd FinTrack
 
 Open the file:
   Just double-click index.html
 
-Visit the Live Demo:
