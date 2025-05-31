@@ -32,6 +32,9 @@
   LocalStorage – Persistent data in the browser
 
 
+Screenshots:
+  https://drive.google.com/drive/folders/1wLFV-GEkb9Sa6L-PcEY71GgdbZ2go_CS?usp=drive_link
+
 
 🚀 Run Instructions:
 
